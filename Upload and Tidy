@@ -1,0 +1,130 @@
+#load packages -------------
+
+library(tidyverse)
+library(here)
+library(janitor)
+library(skimr)
+library(ryouwithme)
+library(dplyr)
+library(magrittr)
+
+#3 ways to read a csv
+
+##how to read data from a csv
+beaches <- read_csv(here("data","sydneybeaches.csv"))
+
+##reading data from a url
+url_beaches <- read_csv("https://raw.githubusercontent.com/rladiessydney/RYouWithMe/master/sydneybeaches.csv")
+
+##RYouWithMe package with extra details for following this tutorial
+install.packages("remotes")
+
+### used the remotes function to install github and from which github code I wanted to use
+remotes::install_github("jenrichmond/ryouwithme")
+
+library(remotes)
+sydneybeaches <- sydneybeaches
+
+#exploring the data ------------
+View(sydneybeaches)
+dim(sydneybeaches)
+str(sydneybeaches)
+glimpse(sydneybeaches) ###this one gives a good view of the column names
+head(sydneybeaches)
+tail(sydneybeaches)
+summary(sydneybeaches)
+skim(sydneybeaches)
+
+# tidying the data -----------
+
+select_all(sydneybeaches, toupper) ###all upper case for the column names
+select_all(sydneybeaches, tolower) ###all lower case for the column names
+
+clean_names(sydneybeaches) ###makes column headers more readable by putting an underscore between words
+names(sydneybeaches)###to see a list of column names in your data
+
+##to keep the clean data that you just made, you have to save it as another object
+cleanbeaches <- clean_names(sydneybeaches)
+names(cleanbeaches)
+## i dont like enterococci_cfu_100ml as a column header so we are going to rename this
+## rename by using new name = old name
+rename(cleanbeaches, beachbugs = enterococci_cfu_100ml) ###this is temporary if you keep it like this
+
+cleanbeaches <-rename(cleanbeaches, beachbugs = enterococci_cfu_100ml) ###this overwrites the data with the new adjustment
+names(cleanbeaches)
+
+#to select only some variables of the dataset, use the select function
+select(cleanbeaches, council, site, beachbugs)
+#the select function could also be used to move the columns to the left 
+select(cleanbeaches, council, site, beachbugs, everything()) ### to save this, overwrite it or make a new object
+
+# pipe %>% is a way to string functions together that runs sequentially 
+
+cleanbeaches <- beaches %>%
+  clean_names() %>%
+  rename(beachbugs = enterococci_cfu_100ml)
+
+#to save your pipeline data that has been cleaned into another csv, use this function
+write_csv(cleanbeaches, "cleanbeaches.csv")
+  
+# which beach has the most extreme level of bugs, a way to arrange your data
+cleanbeaches %>% arrange(beachbugs) ###this shows from smallest to largest
+cleanbeaches %>% arrange(desc(beachbugs)) ###shows the largest value at the top
+worstbugs <- cleanbeaches %>% arrange(desc(beachbugs)) ###making a new data frame
+
+worstcooge <- cleanbeaches %>% filter(site == "Coogee Beach") %>%
+  arrange(-beachbugs) ###another way to have the data descending 
+
+# lets compare max value bugs across beaches
+coogee_bondi <- cleanbeaches %>%
+  filter(site %in% c("Coogee Beach", "Bondi Beach")) %>%
+  arrange(-beachbugs)
+
+#using the summarise function to get standard basic statistics about the data set
+cleanbeaches %>%
+  filter(site %in% c("Coogee Beach", "Bondi Beach")) %>%
+  group_by(site) %>%  ###this allows to look for each group
+  summarise(maxbug = max(beachbugs, na.rm = TRUE),  ###na.rm removes all NA values in that column
+            meanbug = mean(beachbugs, na.rm = TRUE),
+            medianbug = median(beachbugs, na.rm = TRUE),
+            sdbug = sd(beachbugs, na.rm = TRUE))
+
+#lets compare councils
+cleanbeaches %>% distinct(council)
+
+councilbysite <- cleanbeaches %>%
+  group_by(council, site) %>%
+  summarise(meanbugs = mean(beachbugs, na.rm = TRUE),
+            medianbugs = median(beachbugs, na.rm = TRUE))
+
+# compute new variables ----------------------
+
+glimpse(cleanbeaches)
+
+testdate <- cleanbeaches %>% separate(date, c("day", "month", "year"))
+
+cleanbeaches %>% unite(council_site, council:site) ###an example of merging two columns
+
+# use mutate to transform the beachbugs data
+summary(cleanbeaches)
+
+cleanbeaches %>% mutate(logbeachbugs = log(beachbugs))
+
+# use mutate to compute new numeric variable
+
+cleanbeaches %>% mutate(beachbugsdiff = beachbugs - lag(beachbugs))
+
+# mutate to compute new logic variable
+
+cleanbeaches %>% mutate(buggier = beachbugs > mean(beachbugs, na.rm = TRUE))
+
+meanbugs = mean(cleanbeaches$beachbugs, na.rm = TRUE) ### the $ refers to a specific column in your dataframe
+
+
+cleanbeachesnew <- cleanbeaches %>% 
+  separate(date, c("day", "month", "year"), remove = FALSE) %>%
+  mutate(logbeachbugs = log(beachbugs)) %>% 
+  mutate(beachbugsdiff = beachbugs - lag(beachbugs)) %>%
+  mutate(buggier_all = beachbugs > mean(beachbugs, na.rm=TRUE)) %>% 
+  group_by(site) %>% ###this allows us to find the average for the specific site instead of all the sites
+  mutate(buggier_site = beachbugs > mean(beachbugs, na.rm = TRUE))
