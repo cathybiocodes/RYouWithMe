@@ -1,0 +1,21 @@
+#load packages --------------
+library(tidyverse)
+library(here)
+
+#some datasets have multiple variables in one column, so depending on your data, this is something that could be used to manipulate your data
+into proper columns and rows of different variables for analysis
+
+#upload data from your csv
+bakerswide <- read_csv(here("data","bakers_wide.csv"))
+
+#view your data to get a better idea of how it is formatted
+view(bakerswide)
+
+#lets turn it into a long dataset
+bakerslong <- bakerswide %>% 
+  pivot_longer(names_to = "spice", values_to = "correct", cinnamon_1:nutmeg_3)
+
+#as an example, turn it into a wide dataset
+
+bakerslong %>% 
+  pivot_wider(names_from = "spice", values_from = "correct")
