@@ -128,3 +128,7 @@ cleanbeachesnew <- cleanbeaches %>%
   mutate(buggier_all = beachbugs > mean(beachbugs, na.rm=TRUE)) %>% 
   group_by(site) %>% ###this allows us to find the average for the specific site instead of all the sites
   mutate(buggier_site = beachbugs > mean(beachbugs, na.rm = TRUE))
+
+# write cleaned data to .csv ----------
+
+write_csv(cleanbeachesnew, here("data", "cleanbeachesnew.csv"))
