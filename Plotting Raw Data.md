@@ -10,15 +10,19 @@ However, I also needed to omit some rows in my data for better accuracy.
 <img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/fb0128aa-2160-4200-ad66-504d6f160ffd" />
 
 The sites were also not as readable so I flipped the coordinates. It is starting to look better with my coordinates flipped. 
+
 <img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/c7b8223e-0545-466b-8a69-af24f37b7d2b" />
 
-Adding color would help view the different years, but the data recognized my 'year' variable as a sort of integer instead of a factor, so it made the colors scale
+Adding color would help view the different years, but the data recognized my 'year' variable as a sort of integer instead of a factor, so it made the colors scale.
+
 <img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/97ae9665-1810-4dbd-a7ea-e7c374d73174" />
 
-I changed that by making the 'year' into a factor and reran the code to get another plot:
+I changed that by making the 'year' into a factor and reran the code to get another plot.
+
 <img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/a46274b9-e008-4a0d-b87b-cc6f2da4a2a8" />
 
-The plot still had a lot of overlapping data, which made it hard to differentiate the data by variables. I then used facet_wrap to make smaller graphs for each site
+The plot still had a lot of overlapping data, which made it hard to differentiate the data by variables. I then used facet_wrap to make smaller graphs for each site.
+
 <img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/69c327e0-a049-482e-adb5-cd80fbe92f91" />
 
 Looking at the plot, the scale was off by some outliers. I changed the scale to up to 1000 to reflect the majority of the data in the set. 
