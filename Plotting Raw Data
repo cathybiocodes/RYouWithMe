@@ -1,0 +1,75 @@
+# load packages -------------
+library(tidyverse)
+library(here)
+library(ggbeeswarm)
+
+
+# read in cleanbeachesnew data csv
+plotbeaches <- read_csv(here("data","cleanbeachesnew.csv"))
+
+# plot bug levels using ggplot
+
+plotbeaches %>% 
+  ggplot(aes(x = year, y = beachbugs)) +
+  geom_point()
+
+# to view the number of observations across the years
+
+plotbeaches %>%
+  group_by(year) %>%
+  summarise(obs = n())
+
+# replotting bug levels by year using jitter or quasirandom
+
+plotbeaches %>% 
+  ggplot(aes(x = year, y = beachbugs)) +
+  geom_jitter() #spreads the number of observations so the points are not on top of another
+
+plotbeaches %>% 
+  ggplot(aes(x = year, y = beachbugs)) +
+  geom_quasirandom() #looks weird because a lot of the values are close to zero
+
+# plot bug levels by site
+plotbeaches %>%
+  na.omit() %>% #used to omit any entire rows that have NA in it, so use this with caution
+  ggplot(aes(x = site, y = beachbugs, color = year)) + #since ggplot was made before pipelines, it is a little hard to integrate it with ggplot, so use the old school method with '+'
+  geom_jitter() +
+  coord_flip() #to make the sites more readable
+
+# turn the year to a factor instead of an integer or dbl
+glimpse(plotbeaches) #running this shows that it thinks my year is a continuous integer instead of a factor, making the colors look like a scale
+
+plotbeaches$year <- as.factor(plotbeaches$year)
+
+# glimpse to check it did the right thing
+glimpse(plotbeaches)
+
+#then run the above pipeline again by site
+
+# using facet wrap to loop the data into different small graphs for easy viewing -------
+
+plotbeaches %>%
+  na.omit() %>%
+  ggplot(aes(x = year, y = beachbugs, colour = site)) + #check by other variables like year or council 
+  geom_jitter() +
+  facet_wrap(~ site)#add a coord_flip if it is better for viewability after this
+#the scale of this graph is a bit off because of outliers
+
+#combine filter and ggplot to restrict values of up to 1000
+plotbeaches %>%
+  na.omit() %>%
+  filter(beachbugs < 1000) %>%
+  ggplot(aes(x = year, y = beachbugs, colour = site)) +
+  geom_jitter() +
+  facet_wrap(~site)
+#to use filter again to compare different sites
+plotbeaches %>% 
+  na.omit() %>%
+  filter(beachbugs < 1000) %>%
+  filter(site %in% c("Coogee Beach", "Bondi Beach"))%>%
+  ggplot(aes(x = year, y = beachbugs, colour = site)) +
+  geom_jitter() +
+  facet_wrap(~site)
+
+# how to get ggplots out of R ---------------
+ggsave(here("output", "coogeebondi.png"))#ggsave saves the last plot that you made, use the here package to specify where to save the plot
