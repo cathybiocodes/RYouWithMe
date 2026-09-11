@@ -1,5 +1,5 @@
 # My Thought Process in Plotting Raw Data for Clean Sydney Beaches
-Please refer to my Plotting Raw Data script to see what I used to code these plots. Data used from Sydney Clean Beaches provided by RLadiesSydney.
+Please refer to my [Plotting Raw Data script](https://github.com/cathybiocodes/RYouWithMe/blob/main/Plotting%20Raw%20Data) to see what I used to code these plots. Data used from Sydney Clean Beaches provided by RLadiesSydney.
 This first graph I made with geom_point, but the observation points are on top of one another. 
 
 <img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/c22aed57-3820-4db4-8595-cbbab93dc93d" />
