@@ -73,3 +73,55 @@ plotbeaches %>%
 
 # how to get ggplots out of R ---------------
 ggsave(here("output", "coogeebondi.png"))#ggsave saves the last plot that you made, use the here package to specify where to save the plot
+
+# boxes and violins -------------
+
+plotbeaches %>%
+  na.omit() %>%
+  ggplot(aes(x = site, y = logbeachbugs)) +
+  geom_boxplot() +
+  coord_flip()
+
+### log helps transform the data
+### violin plots show most of the data in the wide space, and the long tails are outliers
+plotbeaches %>%
+  na.omit() %>%
+  ggplot(aes(x=year, y=logbeachbugs)) +
+  geom_violin()
+
+#filtered for buggier than average for that site = true
+  plotbeaches %>%
+    na.omit() %>%
+    filter(buggier_site == "TRUE")%>%
+  ggplot(aes(x=year, y=logbeachbugs, colour = year, fill = year)) +
+    geom_violin() +
+    facet_wrap(~site)
+
+#trying a histogram with this dataset for learning purposes -----------
+
+hist(plotbeaches$beachbugs) ###this is a fast way to eyeball the data
+###histograms look at one variable only so the y variable does not need to be defined, R automatically counts it for you
+plotbeaches %>%
+  na.omit() %>%
+  filter(site == "Clovelly Beach",
+         year == "2018",
+         logbeachbugs > 0) %>%
+  ggplot(aes(x = logbeachbugs)) +
+  geom_histogram(binwidth = 0.5) #binwidth used to adjust the default spacing
+
+#combination of different plot types into one
+
+plotbeaches %>%
+  na.omit() %>%
+  filter(buggier_site == "TRUE") %>%
+  ggplot(aes(x = site, y = logbeachbugs)) +
+  geom_boxplot() +
+  geom_point(aes(color = year)) +
+  coord_flip()
+
+plotbeaches %>%
+  na.omit() %>%
+  filter(site == "Clovelly Beach") %>%
+  ggplot(aes(x=year, y= logbeachbugs)) +
+  geom_violin()+
+  geom_quasirandom(aes(colour = buggier_site))
