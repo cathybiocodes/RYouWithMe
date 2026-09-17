@@ -37,3 +37,40 @@ It was interesting to see how clean the different beach sites have gotten over t
 with this tutorial provided by RLadiesSydney. It was a great refresher and different from other R modules that I have followed.
 
 
+
+Following along the tutorial to learn more visualizing different types of boxplots, first I plotted a very basic boxplot but I want it to be prettier.
+
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/3e0cda6d-32c6-4e8e-818a-f982d2834447" />
+
+I learned how to use the violin plot from ggplot2 and got a basic one to show first
+
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/ba36e329-d1b7-4630-a7e7-d555bdc49cac" />
+
+Then I filtered the data by site with a facet wrap
+
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/4b9334be-c609-455d-b1d1-32bc898e9e1c" />
+
+Added color with filling by year
+
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/f3470c8f-d533-4799-ac80-e2b5400b590b" />
+
+Sometimes I just need to look at the data real quick so I used a basic histogram code and adjusted the spacing
+
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/b79cd347-3faa-4158-9868-b2c24cced4e6" />
+
+Took everything I learned so far from and combined them all into a boxplot
+
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/f16ffe1c-c731-4452-9c6a-9216e7c0ac42" />
+
+Then I wanted to see what it would look like in a violin plot with the points scattered in the filling
+
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/4ec38327-2fa2-493e-a2ba-0bf08573a93f" />
+
+Overall, it was more fun learning the violin plots. The thinner sides show off the outliers and it is just visually more appealing. 
+
+
+
+
+
+
+
