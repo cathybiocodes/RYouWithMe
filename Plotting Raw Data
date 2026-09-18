@@ -125,3 +125,58 @@ plotbeaches %>%
   ggplot(aes(x=year, y= logbeachbugs)) +
   geom_violin()+
   geom_quasirandom(aes(colour = buggier_site))
+
+
+# plotting with geom bar and geom col ----------
+### geombar is used to count observations and frequency automatically
+### if the height of the bar is supposed to be the value of something then use geom col
+plotbeaches %>%
+  na.omit() %>%
+  ggplot(aes(x = year)) +
+  geom_bar() +
+  facet_wrap(~ site)
+
+plotbeaches %>%
+  na.omit() %>%
+  ggplot(aes(x = year, y = beachbugs)) +
+  geom_col()
+
+### check your data using summarise to verify your graph data from geom col
+plotbeaches %>%
+  na.omit() %>%
+  group_by(year) %>%
+  summarise(totalbugs = sum(beachbugs))
+
+### always check your data before piping into ggplot, i wanted to look at year and site
+plotbeaches %>%
+  na.omit() %>%
+  group_by(year, site) %>%
+  summarise(meanbugs = mean(beachbugs)) %>%
+  ggplot(aes(x = year, y = meanbugs)) +
+  geom_col() +
+  facet_wrap(~site)
+
+# including error bars ------
+plotbeaches %>%
+  na.omit() %>%
+  group_by(site) %>%
+  summarise(mean = mean(beachbugs),
+            sd = sd(beachbugs),
+            n = n(),
+            stderr = sd/sqrt(n)) %>%
+  ggplot(aes(x = site, y = mean)) +
+  geom_col() +
+  coord_flip() +
+  geom_errorbar(aes(x = site, ymin = mean-stderr, ymax = mean+stderr))
+
+
+# correlating data using scatter plots with a different data set --------------
+raintemp <- read_csv(here("data", "rain_temp_beachbugs.csv"))
+### using geom smooth to get a best fit line
+
+raintemp %>%
+    na.omit() %>%
+    filter(beachbugs > 500) %>%
+    ggplot(aes(x = rain_mm, y = beachbugs, colour = temp_airport)) +
+    geom_point() +
+    geom_smooth ()
