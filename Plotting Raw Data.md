@@ -68,8 +68,23 @@ Then I wanted to see what it would look like in a violin plot with the points sc
 
 Overall, it was more fun learning the violin plots. The thinner sides show off the outliers and it is just visually more appealing. 
 
+Trying out bar plots with this dataset so I could get the basics and the build on top of it. I used geom bar so that R could automatically give me a count of my observations.
 
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/36cb5f8d-b5a5-448f-a5fd-34d1b0273167" />
 
+In this one i used geom col so that I could define the variable on my y axis, so that the height of my bars shows the values
+
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/db3ae327-4d06-48b8-bd0a-1271a2bb0091" />
+
+I also wanted to include error bars. I flipped the coordinates in this one for easier readability
+
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/fa74067d-2a9f-4916-8df2-75b83083161a" />
+
+Please refer to my raw data script to find another data set that I used to get this next graph. I wanted to get a correlation plot using scatterplots and a regression line with some color.
+
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/bf96ed6d-a285-4326-95d4-d0aa4d38c249" />
+
+Definitely getting better with my graphing skills here at this point. 
 
 
 
