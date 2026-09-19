@@ -84,7 +84,32 @@ Please refer to my raw data script to find another data set that I used to get t
 
 <img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/bf96ed6d-a285-4326-95d4-d0aa4d38c249" />
 
-Definitely getting better with my graphing skills here at this point. 
+Definitely getting better with my graphing skills here at this point, but would the table be something I could present? This next one I was playing around with the themes available and got rid of the gridlines. 
+
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/cbd7c42e-6870-4f9c-9d95-30494b1904bf" />
+
+Then I loaded another package called RColorBrewer and played with the colors some more.
+
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/b986e7c0-6211-47e4-aa12-d0e9e35fb91b" />
+
+I did need to look at some of the palettes available in the package so I displayed it for easy viewing, before putting the color gradient in my script.
+
+<img width="1227" height="752" alt="image" src="https://github.com/user-attachments/assets/efd2e727-51a4-4a99-a32a-b7628d42a10a" />
+
+I picked a color gradient to show a continuous change in temperature in this graph, from blue to red as the heat goes up.
+
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/618f0f6e-575c-4140-b191-d6ff5f0bc05b" />
+
+Then I put on the proper aspects for a graph that could be presented at a conference, such as title, labels, and data source.
+
+<img width="717" height="516" alt="image" src="https://github.com/user-attachments/assets/b9255707-0b52-4812-b167-f356905d8cb1" />
+
+There is certainly a lot that could be done with different color aspects, and I have not even touched half of the ggplot package yet.
+
+
+
+
+
 
 
 
