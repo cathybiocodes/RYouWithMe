@@ -2,7 +2,11 @@
 library(tidyverse)
 library(here)
 library(ggbeeswarm)
+library(beepr)
+library(RColorBrewer)
 
+### setting a theme as your default
+theme_set(theme_classic())
 
 # read in cleanbeachesnew data csv
 plotbeaches <- read_csv(here("data","cleanbeachesnew.csv"))
@@ -73,6 +77,7 @@ plotbeaches %>%
 
 # how to get ggplots out of R ---------------
 ggsave(here("output", "coogeebondi.png"))#ggsave saves the last plot that you made, use the here package to specify where to save the plot
+
 
 # boxes and violins -------------
 
@@ -180,3 +185,58 @@ raintemp %>%
     ggplot(aes(x = rain_mm, y = beachbugs, colour = temp_airport)) +
     geom_point() +
     geom_smooth ()
+
+
+# how to change x in ggplot -------------
+
+### get rid of the grey and gridlines
+raintemp %>%
+  na.omit() %>%
+  filter(beachbugs > 500) %>%
+  ggplot(aes(x = rain_mm, y = beachbugs, colour = temp_airport)) +
+  geom_point() +
+  geom_smooth () +
+  theme_classic()
+
+### changing the color gradient to reflect cool is blue and hot is red
+
+raintemp %>%
+  na.omit() %>%
+  filter(beachbugs > 500) %>%
+  ggplot(aes(x = rain_mm, y = beachbugs, colour = temp_airport)) +
+  geom_point() +
+  geom_smooth () +
+  theme_classic() +
+  scale_colour_gradient(low = "blue", high = "red")
+
+### i installed a package called RColorBrewer at this point
+### using a palette for setting colors with using scale colour distiller for a continuous gradient
+
+display.brewer.all() ### typed this into my console to look at the the different palettes are
+
+raintemp %>%
+  na.omit() %>%
+  filter(beachbugs > 500) %>%
+  ggplot(aes(x = rain_mm, y = beachbugs, colour = temp_airport)) +
+  geom_point() +
+  geom_smooth () +
+  theme_classic() +
+  scale_colour_distiller(palette = "RdYlBu")
+
+# adding titles and change axis labels ------------
+### adding \n in the title where i want it to wrap around
+
+raintemp %>%
+  na.omit() %>%
+  filter(beachbugs > 500) %>%
+  ggplot(aes(x = rain_mm, y = beachbugs, colour = temp_airport)) +
+  geom_point() +
+  geom_smooth () +
+  theme_classic() +
+  scale_colour_distiller(palette = "RdYlBu",
+                         name = "Temp (C)") +
+  labs(title = "Mean enterococci bacteria levels at Eastern Suburbs beaches \n as a function of rainfall and temperature",
+       subtitle = "only day > 500",
+       caption = "data from https://www.environment.nsw.gov.au/beachapp/report_enterococci.aspx",
+       x = "Rainfall (mm)",
+       y = "Mean enterococci levels")
