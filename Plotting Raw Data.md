@@ -106,6 +106,9 @@ Then I put on the proper aspects for a graph that could be presented at a confer
 
 There is certainly a lot that could be done with different color aspects, and I have not even touched half of the ggplot package yet.
 
+There is so much that could be done with ggplot and I dont even know the half of it. Had fun adding a gif to a plot, but the file is too big for me to add here. 
+
+
 
 
 
