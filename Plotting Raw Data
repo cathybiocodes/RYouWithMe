@@ -4,6 +4,7 @@ library(here)
 library(ggbeeswarm)
 library(beepr)
 library(RColorBrewer)
+library(magick)
 
 ### setting a theme as your default
 theme_set(theme_classic())
@@ -240,3 +241,22 @@ raintemp %>%
        caption = "data from https://www.environment.nsw.gov.au/beachapp/report_enterococci.aspx",
        x = "Rainfall (mm)",
        y = "Mean enterococci levels")
+
+# adding a gif for fun --------------------------------
+### install the magick package and load it
+
+ggsave("beaches.png") ###saving my previous plot into a png
+
+### find a gif that you like and save it as a .gif file, then read the images into R
+
+beachplot <- image_read("beaches.png")
+nocap <- image_read("capybara.gif")
+
+### make a composite image and then use the offset to move the gif
+frames <- image_composite(beachplot, nocap, offset = "+600+200")
+
+### animate the frames and write to a new gif. Use the beepr package to alert when it is done
+animation <- image_animate(frames, fps = 10)
+image_write(animation, "beachcap.gif")
+
+beep(sound = 8) #because why not lol
