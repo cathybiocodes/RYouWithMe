@@ -1,5 +1,5 @@
 # 🚀 BasicBasics: Getting Started with R
-This repository is my workspace for going through the RLadies Sydney BasicBasics tutorial. I am using this project to make sure my foundation in R and RStudio is rock solid before diving into more complex data analysis and multi-omic pipelines.
+This repository is my workspace for going through the [RLadies](https://rladiessydney.org/courses/summary) Sydney BasicBasics tutorial. I am using this project to make sure my foundation in R and RStudio is rock solid before diving into more complex data analysis and multi-omic pipelines.
 
 # 🔬 What I'm working on in this repo
 For this tutorial, it's all about the fundamentals of setting up a clean, reproducible workflow. A few specific things I am working on here:
